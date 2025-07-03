@@ -34,4 +34,4 @@ GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n\n-----END PRIVATE KEY-----\n"
 
 ```
 
-id google таблицы находиться между /d/ и /edit
+id google таблицы находиться между /d/ и /edit в ссылке на гугл таблицу
