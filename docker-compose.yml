@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+    db:
+        container_name: db
+        image: postgres:14
+        environment:
+            POSTGRES_DB: ${POSTGRES_DB}
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        ports:
+            - "5432:5432"
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+
+    app:
+        container_name: app
+        build: .
+        environment:
+            POSTGRES_HOST: ${POSTGRES_HOST}
+            POSTGRES_PORT: ${POSTGRES_PORT}
+            POSTGRES_DB: ${POSTGRES_DB}
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            APP_PORT: ${APP_PORT}
+            WB_API_KEY: ${WB_API_KEY}
+            WB_API_URL: ${WB_API_URL}
+            GOOGLE_SHEETS_IDS: ${GOOGLE_SHEETS_IDS}
+            GOOGLE_SERVICE_ACCOUNT_EMAIL: ${GOOGLE_SERVICE_ACCOUNT_EMAIL}
+            GOOGLE_PRIVATE_KEY: ${GOOGLE_PRIVATE_KEY}
+        depends_on:
+            - db
+        volumes:
+            - .:/app
+        ports:
+            - "3000:3000"
+        env_file:
+            - .env
+
+volumes:
+    pgdata:
