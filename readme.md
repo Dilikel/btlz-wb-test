@@ -1,54 +1,35 @@
-# Шаблон для выполнения тестового задания
-
-## Описание
-Шаблон подготовлен для того, чтобы попробовать сократить трудоемкость выполнения тестового задания.
-
-В шаблоне настоены контейнеры для `postgres` и приложения на `nodejs`.  
-Для взаимодействия с БД используется `knex.js`.  
-В контейнере `app` используется `build` для приложения на `ts`, но можно использовать и `js`.
-
-Шаблон не является обязательным!\
-Можно использовать как есть или изменять на свой вкус.
-
-Все настройки можно найти в файлах:
-- compose.yaml
-- dockerfile
-- package.json
-- tsconfig.json
-- src/config/env/env.ts
-- src/config/knex/knexfile.ts
-
 ## Команды:
 
-Запуск базы данных:
+Запуск приложения:
 ```bash
-docker compose up -d --build postgres
+docker-compose up --build
 ```
 
-Для выполнения миграций и сидов не из контейнера:
+Остановить приложение:
 ```bash
-npm run knex:dev migrate latest
+docker-compose down
 ```
 
+Остановить и удалить все данные:
 ```bash
-npm run knex:dev seed run
-```
-Также можно использовать и остальные команды (`migrate make <name>`,`migrate up`, `migrate down` и т.д.)
-
-Для запуска приложения в режиме разработки:
-```bash
-npm run dev
+docker-compose down -v
 ```
 
-Запуск проверки самого приложения:
+## Формат .env файла:
 ```bash
-docker compose up -d --build app
-```
+POSTGRES_PORT=5432
+POSTGRES_DB=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_HOST=db
 
-Для финальной проверки рекомендую:
-```bash
-docker compose down --rmi local --volumes
-docker compose up --build
-```
+APP_PORT=5000
 
-PS: С наилучшими пожеланиями!
+WB_API_KEY=api_key
+WB_API_URL=https://common-api.wildberries.ru/api
+
+GOOGLE_SHEETS_IDS=id1,id2...
+GOOGLE_SERVICE_ACCOUNT_EMAIL=vladimir@adsfg.gserviceaccount.com
+GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n\n-----END PRIVATE KEY-----\n"
+
+```

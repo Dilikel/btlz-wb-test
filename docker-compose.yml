@@ -11,6 +11,11 @@ services:
             - "5432:5432"
         volumes:
             - pgdata:/var/lib/postgresql/data
+        healthcheck:
+                test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+                interval: 5s
+                timeout: 5s
+                retries: 5    
 
     app:
         container_name: app
@@ -28,9 +33,8 @@ services:
             GOOGLE_SERVICE_ACCOUNT_EMAIL: ${GOOGLE_SERVICE_ACCOUNT_EMAIL}
             GOOGLE_PRIVATE_KEY: ${GOOGLE_PRIVATE_KEY}
         depends_on:
-            - db
-        volumes:
-            - .:/app
+             db:
+                condition: service_healthy
         ports:
             - "3000:3000"
         env_file:
