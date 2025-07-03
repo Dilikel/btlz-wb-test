@@ -33,3 +33,5 @@ GOOGLE_SERVICE_ACCOUNT_EMAIL=vladimir@adsfg.gserviceaccount.com
 GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n\n-----END PRIVATE KEY-----\n"
 
 ```
+
+id google таблицы находиться между /d/ и /edit
